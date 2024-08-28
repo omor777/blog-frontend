@@ -4,14 +4,14 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import Navbar from "./shared/Navbar";
-import { Box, Container, CssBaseline } from "@mui/material";
+import { Box, Container, CssBaseline, Stack } from "@mui/material";
 
 const Root = () => {
   return (
     <>
       <CssBaseline />
       <Box>
-        <Box bgcolor="red" component="header">
+        <Box component="header" mb={1}>
           <Container maxWidth="xl">
             <Navbar />
           </Container>
@@ -22,7 +22,6 @@ const Root = () => {
             display: "grid",
             gridTemplateColumns: "12",
             gap: 2,
-            // gridTemplateRows: "auto 1fr",
             height: "100vh",
           }}
         >
