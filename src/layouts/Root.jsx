@@ -4,7 +4,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import Navbar from "./shared/Navbar";
-import { Box, Container, CssBaseline, Stack } from "@mui/material";
+import { Box, Container, CssBaseline } from "@mui/material";
 
 const Root = () => {
   return (
@@ -29,7 +29,7 @@ const Root = () => {
             Left side bar
           </Box>
           <Box bgcolor="green" gridColumn="3 / span 8" component="main">
-            Main
+            <Outlet />
           </Box>
           <Box bgcolor={"purple"} gridColumn=" 11 / span 2" component="aside">
             Right Sidebar
