@@ -106,7 +106,9 @@ const Navbar = () => {
           </Search>
           <Box flexGrow={1} />
           <Stack direction="row" spacing={2}>
-            <Button color="inherit">Login</Button>
+            <Button component={Link} to="/login" color="inherit">
+              Login
+            </Button>
             <Button
               component={Link}
               to="/register"

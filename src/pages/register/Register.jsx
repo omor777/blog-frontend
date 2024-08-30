@@ -14,7 +14,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 import dayjs from "dayjs";
 import useImageUpload from "../../hooks/useImageUpload";
-import { useCreateNewUserMutation } from "../../feature/auth/authApiSlice";
+import { useRegisterUserMutation } from "../../feature/auth/authApiSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -34,7 +34,7 @@ const Register = () => {
   const [dateOfBirth, setDateOfBirth] = useState(dayjs());
   const [previewImageUrl, setPreviewImageUrl] = useState(null);
   const { loading, imageUrl, imageUpload } = useImageUpload();
-  const [createNewUser, { isLoading }] = useCreateNewUserMutation();
+  const [createNewUser, { isLoading }] = useRegisterUserMutation();
   const navigate = useNavigate();
 
   const {
@@ -76,7 +76,7 @@ const Register = () => {
       if (data.success) {
         toast.success(data.message);
         setPreviewImageUrl(null);
-        navigate("/");
+        navigate("/login");
       }
     } catch (e) {
       const data = e?.data;
@@ -88,13 +88,13 @@ const Register = () => {
   };
 
   return (
-    <Paper sx={{ p: 4 }}>
+    <Paper variant="outlined" sx={{ p: 4 }}>
       <Typography
         variant="h3"
         fontWeight="bold"
         color="grey.700"
         textAlign="center"
-        mb={3}
+        mb={5}
       >
         Create{" "}
         <Box component="span" color="primary.main">

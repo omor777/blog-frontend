@@ -2,10 +2,19 @@ import { rootApi } from "../../api/api";
 
 const authApi = rootApi.injectEndpoints({
   endpoints: (builder) => ({
-    createNewUser: builder.mutation({
+    registerUser: builder.mutation({
       query: (body) => {
         return {
           url: "/users/register",
+          method: "POST",
+          body,
+        };
+      },
+    }),
+    loginUser: builder.mutation({
+      query: (body) => {
+        return {
+          url: "/users/login",
           method: "POST",
           body,
         };
@@ -15,4 +24,4 @@ const authApi = rootApi.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useCreateNewUserMutation } = authApi;
+export const { useRegisterUserMutation, useLoginUserMutation } = authApi;
