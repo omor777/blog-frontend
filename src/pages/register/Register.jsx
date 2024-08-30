@@ -1,6 +1,8 @@
 import {
   Box,
   Button,
+  IconButton,
+  InputAdornment,
   Paper,
   Stack,
   styled,
@@ -17,6 +19,12 @@ import useImageUpload from "../../hooks/useImageUpload";
 import { useRegisterUserMutation } from "../../feature/auth/authApiSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import PersonIcon from "@mui/icons-material/Person";
+import EmailIcon from "@mui/icons-material/Email";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import DescriptionIcon from "@mui/icons-material/Description";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -33,6 +41,7 @@ const VisuallyHiddenInput = styled("input")({
 const Register = () => {
   const [dateOfBirth, setDateOfBirth] = useState(dayjs());
   const [previewImageUrl, setPreviewImageUrl] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const { loading, imageUrl, imageUpload } = useImageUpload();
   const [createNewUser, { isLoading }] = useRegisterUserMutation();
   const navigate = useNavigate();
@@ -65,6 +74,10 @@ const Register = () => {
     setPreviewImageUrl(null);
   };
 
+  const handleShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   const handleFormSubmit = async (formState) => {
     const newUser = {
       ...formState,
@@ -88,7 +101,7 @@ const Register = () => {
   };
 
   return (
-    <Paper variant="outlined" sx={{ p: 4 }}>
+    <Paper variant="outlined" sx={{ p: 4, mt: 8 }}>
       <Typography
         variant="h3"
         fontWeight="bold"
@@ -113,6 +126,15 @@ const Register = () => {
           spacing={2}
         >
           <TextField
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <PersonIcon />
+                  </InputAdornment>
+                ),
+              },
+            }}
             {...register("name", {
               required: {
                 value: true,
@@ -129,6 +151,15 @@ const Register = () => {
             fullWidth
           />
           <TextField
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <EmailIcon />
+                  </InputAdornment>
+                ),
+              },
+            }}
             {...register("email", {
               required: {
                 value: true,
@@ -146,6 +177,15 @@ const Register = () => {
           />
         </Stack>
         <TextField
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <DescriptionIcon />
+                </InputAdornment>
+              ),
+            },
+          }}
           {...register("bio")}
           multiline
           minRows={3}
@@ -158,7 +198,20 @@ const Register = () => {
           direction={{ xs: "column", md: "row" }}
           spacing={2}
         >
-          <TextField {...register("address")} label="Address" fullWidth />
+          <TextField
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <LocationOnIcon />
+                  </InputAdornment>
+                ),
+              },
+            }}
+            {...register("address")}
+            label="Address"
+            fullWidth
+          />
           <DatePicker
             value={dateOfBirth}
             onChange={(newValue) => handleDateOfBirth(newValue)}
@@ -167,6 +220,17 @@ const Register = () => {
           />
         </Stack>
         <TextField
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton size="small" onClick={handleShowPassword}>
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+          }}
           {...register("password", {
             required: {
               value: true,
@@ -180,15 +244,27 @@ const Register = () => {
           error={errors.password && errors.password?.message}
           helperText={errors.password && errors.password?.message}
           label="Password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           fullWidth
-          sx={{ my: 2 }}
+          sx={{ mt: 2 }}
         />
+
+        <Button
+          disabled={loading || isLoading}
+          type="submit"
+          variant="contained"
+          fullWidth
+          sx={{ mt: 3 }}
+        >
+          Register
+        </Button>
+
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            mt: 3,
           }}
         >
           {previewImageUrl ? (
@@ -240,7 +316,7 @@ const Register = () => {
                   mx: "auto",
                 },
                 ".MuiButton-startIcon > :nth-of-type(1)": {
-                  fontSize: "3.3rem",
+                  fontSize: "2.5rem",
                 },
               }}
               component="label"
@@ -254,15 +330,6 @@ const Register = () => {
             </Button>
           )}
         </Box>
-        <Button
-          disabled={loading || isLoading}
-          type="submit"
-          variant="contained"
-          fullWidth
-          sx={{ mt: 3 }}
-        >
-          Register
-        </Button>
       </Box>
     </Paper>
   );

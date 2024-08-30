@@ -23,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [loginUser, { isLoading, isError, error }] = useLoginUserMutation();
+  const [loginUser, { isLoading, isError }] = useLoginUserMutation();
   const navigate = useNavigate();
 
   const {
@@ -58,107 +58,101 @@ const Login = () => {
     }
   };
   return (
-    <Box
-      sx={{
-        mt: 12,
-      }}
-    >
-      <Paper variant="outlined" elevation={4} sx={{ p: 4, flexGrow: 1 }}>
-        <Typography
-          variant="h3"
-          fontWeight="bold"
-          color="grey.700"
-          textAlign="center"
-          mb={5}
-        >
-          Log{" "}
-          <Box component="span" color="primary.main">
-            In
-          </Box>
-        </Typography>
-        {/* Form */}
-        <Box onSubmit={handleSubmit(handleLogin)} component="form" noValidate>
-          <Stack spacing={2}>
-            <TextField
-              error={isError || errors.email}
-              helperText={errors.email && errors.email?.message}
-              {...register("email", {
-                required: {
-                  value: true,
-                  message: "Enter your email address",
-                },
-              })}
-              label="Email"
-              slotProps={{
-                input: {
-                  endAdornment: (
-                    <InputAdornment position="start">
-                      <EmailIcon />
-                    </InputAdornment>
-                  ),
-                },
-              }}
-            />
-
-            <TextField
-              error={isError || errors.password}
-              helperText={errors.password && errors.password?.message}
-              {...register("password", {
-                required: {
-                  value: true,
-                  message: "Enter your password",
-                },
-              })}
-              label="Password"
-              type={showPassword ? "text" : "password"}
-              slotProps={{
-                input: {
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton onClick={handleShowPassword}>
-                        {showPassword ? (
-                          <VisibilityOffIcon />
-                        ) : (
-                          <VisibilityIcon />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                },
-              }}
-            />
-          </Stack>
-
-          <Button
-            disabled={isLoading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            sx={{ mt: 3 }}
-          >
-            Log in
-          </Button>
-
-          <Divider sx={{ my: 2 }}>OR</Divider>
-          <Stack spacing={1.5}>
-            <Button
-              startIcon={<GoogleIcon />}
-              variant="contained"
-              sx={{ bgcolor: "error.dark" }}
-            >
-              Login with Google
-            </Button>
-            <Button
-              startIcon={<GitHubIcon />}
-              variant="contained"
-              sx={{ bgcolor: "grey.900" }}
-            >
-              Login with Github
-            </Button>
-          </Stack>
+    <Paper variant="outlined" elevation={4} sx={{ p: 4, flexGrow: 1, mt: 8 }}>
+      <Typography
+        variant="h3"
+        fontWeight="bold"
+        color="grey.700"
+        textAlign="center"
+        mb={5}
+      >
+        Log{" "}
+        <Box component="span" color="primary.main">
+          In
         </Box>
-      </Paper>
-    </Box>
+      </Typography>
+      {/* Form */}
+      <Box onSubmit={handleSubmit(handleLogin)} component="form" noValidate>
+        <Stack spacing={2}>
+          <TextField
+            error={isError || errors.email}
+            helperText={errors.email && errors.email?.message}
+            {...register("email", {
+              required: {
+                value: true,
+                message: "Enter your email address",
+              },
+            })}
+            label="Email"
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <EmailIcon />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+
+          <TextField
+            error={isError || errors.password}
+            helperText={errors.password && errors.password?.message}
+            {...register("password", {
+              required: {
+                value: true,
+                message: "Enter your password",
+              },
+            })}
+            label="Password"
+            type={showPassword ? "text" : "password"}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleShowPassword}>
+                      {showPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+        </Stack>
+
+        <Button
+          disabled={isLoading}
+          type="submit"
+          variant="contained"
+          fullWidth
+          sx={{ mt: 3 }}
+        >
+          Log in
+        </Button>
+
+        <Divider sx={{ my: 2 }}>OR</Divider>
+        <Stack spacing={1.5}>
+          <Button
+            startIcon={<GoogleIcon />}
+            variant="contained"
+            sx={{ bgcolor: "error.dark" }}
+          >
+            Login with Google
+          </Button>
+          <Button
+            startIcon={<GitHubIcon />}
+            variant="contained"
+            sx={{ bgcolor: "grey.900" }}
+          >
+            Login with Github
+          </Button>
+        </Stack>
+      </Box>
+    </Paper>
   );
 };
 
