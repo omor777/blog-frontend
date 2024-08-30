@@ -28,7 +28,7 @@ const Root = () => {
           <Box bgcolor={"blue"} gridColumn="1 / span 2" component="aside">
             Left side bar
           </Box>
-          <Box bgcolor="green" gridColumn="3 / span 8" component="main">
+          <Box gridColumn="3 / span 8" component="main">
             <Outlet />
           </Box>
           <Box bgcolor={"purple"} gridColumn=" 11 / span 2" component="aside">

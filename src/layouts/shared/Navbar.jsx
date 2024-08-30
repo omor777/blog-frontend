@@ -10,9 +10,9 @@ import {
 import { styled, alpha } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import { Link } from "react-router-dom";
 
 const Search = styled("form")(({ theme }) => {
-  console.log(theme.shape.borderRadius);
   return {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -81,6 +81,8 @@ const Navbar = () => {
             <MenuIcon />
           </IconButton>
           <Button
+            component={Link}
+            to="/"
             variant="contained"
             sx={{
               boxShadow: "none",
@@ -105,7 +107,13 @@ const Navbar = () => {
           <Box flexGrow={1} />
           <Stack direction="row" spacing={2}>
             <Button color="inherit">Login</Button>
-            <Button color="inherit" variant="outlined">
+            <Button
+              component={Link}
+              to="/register"
+              color="inherit"
+              variant="outlined"
+              sx={{ whiteSpace: "nowrap" }}
+            >
               Create account
             </Button>
           </Stack>
