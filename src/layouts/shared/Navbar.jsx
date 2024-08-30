@@ -1,16 +1,31 @@
 import {
   AppBar,
+  Avatar,
   Box,
   Button,
+  Divider,
   IconButton,
   InputBase,
+  ListItemIcon,
+  Menu,
+  MenuItem,
   Stack,
   Toolbar,
+  Tooltip,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getIsLoggedIn } from "../../feature/auth/authSelector";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import { useState } from "react";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { logoutAction } from "../../feature/auth/authSlice";
 
 const Search = styled("form")(({ theme }) => {
   return {
@@ -60,6 +75,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => {
 });
 
 const Navbar = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const isLoggedIn = useSelector(getIsLoggedIn);
+  const dispatch = useDispatch();
+  const open = Boolean(anchorEl);
+
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutAction());
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -105,20 +138,127 @@ const Navbar = () => {
             <StyledInputBase placeholder="Search..." />
           </Search>
           <Box flexGrow={1} />
-          <Stack direction="row" spacing={2}>
-            <Button component={Link} to="/login" color="inherit">
-              Login
-            </Button>
-            <Button
-              component={Link}
-              to="/register"
-              color="inherit"
-              variant="outlined"
-              sx={{ whiteSpace: "nowrap" }}
-            >
-              Create account
-            </Button>
-          </Stack>
+
+          {isLoggedIn ? (
+            <Stack direction="row" alignItems="center">
+              <Button
+                sx={{ whiteSpace: "nowrap" }}
+                variant="outlined"
+                color="inherit"
+              >
+                Create Post
+              </Button>
+              <IconButton color="inherit" sx={{ ml: 1, mr: 0.5 }}>
+                <NotificationsIcon fontSize="large" />
+              </IconButton>
+
+              <Box>
+                <Tooltip title="Account settings">
+                  <IconButton
+                    onClick={handleOpenMenu}
+                    size="small"
+                    aria-controls={open ? "account-mene" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                  >
+                    <Avatar sx={{ width: 40, height: 40, aspectRatio: 1 / 1 }}>
+                      O
+                    </Avatar>
+                  </IconButton>
+                </Tooltip>
+
+                <Menu
+                  open={open}
+                  id="account-mene"
+                  anchorEl={anchorEl}
+                  onClose={handleCloseMenu}
+                  onClick={handleCloseMenu}
+                  transformOrigin={{ horizontal: "right", vertical: "top" }}
+                  anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                  slotProps={{
+                    paper: {
+                      elevation: 0,
+                      sx: {
+                        overflow: "visible",
+                        filter: "drop-shadow(0px 2px 5px rgba(0,0,0,0.32))",
+                        mt: 1.5,
+                        width: 210,
+                        "& .MuiAvatar-root": {
+                          width: 32,
+                          height: 32,
+                          ml: -0.5,
+                          mr: 1,
+                        },
+                        "&::before": {
+                          content: '""',
+                          display: "block",
+                          position: "absolute",
+                          top: 0,
+                          right: 14,
+                          width: 10,
+                          height: 10,
+                          bgcolor: "background.paper",
+                          transform: "translateY(-50%) rotate(45deg)",
+                          zIndex: 0,
+                        },
+                      },
+                    },
+                  }}
+                >
+                  {/* jfldfjldfjdlfjdslfdlsfldfjdslfdsjfldfjdsfld */}
+                  <MenuItem onClick={handleCloseMenu}>
+                    <Avatar /> Profile
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem onClick={handleCloseMenu}>
+                    <ListItemIcon>
+                      <DashboardIcon fontSize="small" />
+                    </ListItemIcon>
+                    Dashboard
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseMenu}>
+                    <ListItemIcon>
+                      <NoteAddIcon fontSize="small" />
+                    </ListItemIcon>
+                    Create Post
+                  </MenuItem>
+                  <MenuItem>
+                    <ListItemIcon>
+                      <LibraryBooksIcon fontSize="small" />
+                    </ListItemIcon>
+                    Reading List
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem
+                    onClick={() => {
+                      handleCloseMenu();
+                      handleLogout();
+                    }}
+                  >
+                    <ListItemIcon>
+                      <LogoutIcon fontSize="small" />
+                    </ListItemIcon>
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </Box>
+            </Stack>
+          ) : (
+            <Stack direction="row" spacing={2}>
+              <Button component={Link} to="/login" color="inherit">
+                Login
+              </Button>
+              <Button
+                component={Link}
+                to="/register"
+                color="inherit"
+                variant="outlined"
+                sx={{ whiteSpace: "nowrap" }}
+              >
+                Create account
+              </Button>
+            </Stack>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

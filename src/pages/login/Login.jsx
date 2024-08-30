@@ -20,10 +20,13 @@ import { useLoginUserMutation } from "../../feature/auth/authApiSlice";
 import { setToken } from "../../utils/localstorage";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginAction } from "../../feature/auth/authSlice";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loginUser, { isLoading, isError }] = useLoginUserMutation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const {
@@ -44,8 +47,9 @@ const Login = () => {
   const handleLogin = async (formState) => {
     try {
       const data = await loginUser({ ...formState }).unwrap();
+
       if (data.success) {
-        setToken(data.token);
+        dispatch(loginAction(data.token));
         toast.success(data.message);
         navigate("/");
       }
@@ -58,7 +62,7 @@ const Login = () => {
     }
   };
   return (
-    <Paper variant="outlined" elevation={4} sx={{ p: 4, flexGrow: 1, mt: 8 }}>
+    <Paper variant="outlined" sx={{ p: 4, flexGrow: 1, mt: 8 }}>
       <Typography
         variant="h3"
         fontWeight="bold"
