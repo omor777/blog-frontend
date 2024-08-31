@@ -3,6 +3,8 @@ import Root from "../layouts/Root";
 import Home from "../pages/home/Home";
 import Register from "../pages/register/Register";
 import Login from "../pages/login/Login";
+import CreatePost from "../pages/create-post/CreatePost";
+import PostLayout from "../layouts/PostLayout";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +16,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+
       {
         path: "/register",
         element: <Register />,
@@ -23,6 +26,10 @@ const router = createBrowserRouter([
         element: <Login />,
       },
     ],
+  },
+  {
+    path: "/create-post",
+    element: <PostLayout />,
   },
 ]);
 

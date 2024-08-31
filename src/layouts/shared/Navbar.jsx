@@ -146,6 +146,8 @@ const Navbar = () => {
           {isLoggedIn ? (
             <Stack direction="row" alignItems="center">
               <Button
+                component={Link}
+                to="/create-post"
                 sx={{ whiteSpace: "nowrap" }}
                 variant="outlined"
                 color="inherit"
@@ -211,7 +213,6 @@ const Navbar = () => {
                     },
                   }}
                 >
-                  {/* jfldfjldfjdlfjdslfdlsfldfjdslfdsjfldfjdsfld */}
                   <MenuItem dense onClick={handleCloseMenu}>
                     <Avatar src={user?.image} alt={user?.name} />
                     <Stack spacing={-0.5}>
@@ -226,7 +227,11 @@ const Navbar = () => {
                     </ListItemIcon>
                     Dashboard
                   </MenuItem>
-                  <MenuItem onClick={handleCloseMenu}>
+                  <MenuItem
+                    component={Link}
+                    to="/create-post"
+                    onClick={handleCloseMenu}
+                  >
                     <ListItemIcon>
                       <NoteAddIcon fontSize="small" />
                     </ListItemIcon>
