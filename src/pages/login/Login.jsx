@@ -47,9 +47,9 @@ const Login = () => {
   const handleLogin = async (formState) => {
     try {
       const data = await loginUser({ ...formState }).unwrap();
-
+      console.log(data);
       if (data.success) {
-        dispatch(loginAction(data.token));
+        dispatch(loginAction({ token: data.token, user:data.user}));
         toast.success(data.message);
         navigate("/");
       }

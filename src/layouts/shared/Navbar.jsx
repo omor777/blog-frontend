@@ -12,13 +12,14 @@ import {
   Stack,
   Toolbar,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getIsLoggedIn } from "../../feature/auth/authSelector";
+import { getIsLoggedIn, getUserInfo } from "../../feature/auth/authSelector";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useState } from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -78,7 +79,10 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const isLoggedIn = useSelector(getIsLoggedIn);
+  const user = useSelector(getUserInfo);
+  console.log(user);
   const dispatch = useDispatch();
+
   const open = Boolean(anchorEl);
 
   const handleOpenMenu = (event) => {
@@ -161,9 +165,11 @@ const Navbar = () => {
                     aria-haspopup="true"
                     aria-expanded={open ? "true" : undefined}
                   >
-                    <Avatar sx={{ width: 40, height: 40, aspectRatio: 1 / 1 }}>
-                      O
-                    </Avatar>
+                    <Avatar
+                      src={user?.image}
+                      alt={user?.name}
+                      sx={{ width: 40, height: 40, aspectRatio: 1 / 1 }}
+                    ></Avatar>
                   </IconButton>
                 </Tooltip>
 
@@ -206,8 +212,12 @@ const Navbar = () => {
                   }}
                 >
                   {/* jfldfjldfjdlfjdslfdlsfldfjdslfdsjfldfjdsfld */}
-                  <MenuItem onClick={handleCloseMenu}>
-                    <Avatar /> Profile
+                  <MenuItem dense onClick={handleCloseMenu}>
+                    <Avatar src={user?.image} alt={user?.name} />
+                    <Stack spacing={-0.5}>
+                      <Typography>Profile</Typography>
+                      <Typography variant="caption">@{user?.name}</Typography>
+                    </Stack>
                   </MenuItem>
                   <Divider />
                   <MenuItem onClick={handleCloseMenu}>
