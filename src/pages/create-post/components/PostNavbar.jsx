@@ -5,6 +5,7 @@ import {
   IconButton,
   Stack,
   Toolbar,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -51,9 +52,11 @@ const PostNavbar = () => {
             <Button variant="outlined" color="success">
               Preview
             </Button>
-            <IconButton color="error" edge="start">
-              <CloseIcon />
-            </IconButton>
+            <Tooltip title="Leave the page">
+              <IconButton color="error" edge="start">
+                <CloseIcon />
+              </IconButton>
+            </Tooltip>
           </Stack>
         </Toolbar>
       </AppBar>

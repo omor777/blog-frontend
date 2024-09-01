@@ -1,0 +1,16 @@
+.w-md-editor-toolbar button svg {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.w-md-editor-text-input {
+  height: 435px;
+}
+
+body .w-md-editor-text-pre > code,
+body .w-md-editor-text-input {
+  font-size: 18px !important;
+  line-height: 24px !important;
+}
