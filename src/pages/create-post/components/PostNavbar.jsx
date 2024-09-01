@@ -1,17 +1,21 @@
-import {
-  AppBar,
-  Box,
-  Button,
-  IconButton,
-  Stack,
-  Toolbar,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { AppBar, Box, Button, Stack, Toolbar, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import CloseIcon from "@mui/icons-material/Close";
+import { getPostContents } from "../../../feature/posts/postsSelector";
+import { removePreview, setPreview } from "../../../feature/posts/postsSlice";
 
 const PostNavbar = () => {
+  const { isPreview } = useSelector(getPostContents);
+  const dispatch = useDispatch();
+
+  const handlePreview = () => {
+    dispatch(setPreview());
+  };
+
+  const handleEdit = () => {
+    dispatch(removePreview());
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -46,17 +50,20 @@ const PostNavbar = () => {
           <Typography fontWeight={400}>Create Post</Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Stack direction="row" spacing={2}>
-            <Button variant="outlined" color="secondary">
+            <Button
+              onClick={handleEdit}
+              variant={isPreview ? "outlined" : "contained"}
+              color="secondary"
+            >
               Edit
             </Button>
-            <Button variant="outlined" color="success">
+            <Button
+              onClick={handlePreview}
+              variant={isPreview ? "contained" : "outlined"}
+              color="success"
+            >
               Preview
             </Button>
-            <Tooltip title="Leave the page">
-              <IconButton color="error" edge="start">
-                <CloseIcon />
-              </IconButton>
-            </Tooltip>
           </Stack>
         </Toolbar>
       </AppBar>
