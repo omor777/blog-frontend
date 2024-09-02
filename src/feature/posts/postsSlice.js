@@ -29,6 +29,12 @@ const postsSlice = createSlice({
     removePreview(state) {
       state.isPreview = false;
     },
+    resetToInitialState(state) {
+      state.title = "";
+      state.content = "";
+      state.previewImg = null;
+      state.isPreview = false;
+    },
   },
 });
 
@@ -39,6 +45,7 @@ export const {
   removePreviewImg,
   setPreview,
   removePreview,
+  resetToInitialState,
 } = postsSlice.actions;
 
 export default postsSlice.reducer;

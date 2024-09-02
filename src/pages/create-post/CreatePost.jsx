@@ -1,6 +1,4 @@
-import { useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
-import MarkdownPreview from "@uiw/react-markdown-preview";
 
 import "./toolbar.css";
 import {
@@ -18,22 +16,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPostContents } from "../../feature/posts/postsSelector";
 import {
   removePreviewImg,
+  resetToInitialState,
   setPostContent,
   setPostTitle,
   setPreviewImg,
 } from "../../feature/posts/postsSlice";
 import PreviewPost from "./components/PreviewPost";
+import { toast } from "react-toastify";
+import { useCreatePostMutation } from "../../feature/posts/postsApiSlice";
 
 export default function CreatePost() {
-  // const [previewImg, setPreviewImg] = useState(null);
   const { loading, imageUrl, imageUpload } = useImageUpload();
-  const [value, setValue] = useState();
+
   const { title, content, previewImg, isPreview } =
     useSelector(getPostContents);
+  const [createNewPost, { isLoading }] = useCreatePostMutation();
 
   const dispatch = useDispatch();
-
-  console.log(content);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -54,6 +53,24 @@ export default function CreatePost() {
     dispatch(setPostContent(value));
   };
 
+  const handlePublishPost = async () => {
+    if (!title || !title.trim()) return toast.error("Post title is required!");
+    const newPost = {
+      title,
+      content,
+      image: imageUrl,
+    };
+    try {
+      const data = await createNewPost(newPost).unwrap();
+      if (data.success) {
+        dispatch(resetToInitialState());
+        toast.success("Blog publish successful");
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <Stack spacing={2}>
       {!isPreview ? (
@@ -66,6 +83,7 @@ export default function CreatePost() {
                   src={previewImg}
                   height={140}
                   width={140}
+                  sx={{ objectFit: "cover", aspectRatio: 1 / 1 }}
                 ></Box>
               ) : (
                 <Button
@@ -141,7 +159,13 @@ export default function CreatePost() {
 
       <Stack alignItems="center" direction="row" spacing={1}>
         <Stack direction="row" spacing={2} alignItems="center">
-          <Button variant="contained">publish</Button>
+          <Button
+            onClick={handlePublishPost}
+            variant="contained"
+            disabled={loading || isLoading}
+          >
+            publish
+          </Button>
           <Button color="inherit">safe draft</Button>
         </Stack>
         <Stack direction="row" alignItems="center">
