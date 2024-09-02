@@ -20,18 +20,18 @@ const Root = () => {
           maxWidth="xl"
           sx={{
             display: "grid",
-            gridTemplateColumns: "12",
-            gap: 2,
+            gridTemplateColumns: { lg: "300px 1fr 300px" },
+            gap: 3,
             height: "100vh",
           }}
         >
-          <Box bgcolor={"blue"} gridColumn="1 / span 2" component="aside">
+          <Box bgcolor={"blue"} component="aside">
             Left side bar
           </Box>
-          <Box gridColumn="3 / span 8" component="main">
+          <Box component="main">
             <Outlet />
           </Box>
-          <Box bgcolor={"purple"} gridColumn=" 11 / span 2" component="aside">
+          <Box bgcolor={"purple"} component="aside">
             Right Sidebar
           </Box>
         </Container>

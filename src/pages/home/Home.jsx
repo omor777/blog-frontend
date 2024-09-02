@@ -1,9 +1,9 @@
-import Button from "@mui/material/Button";
+import BlogCard from "./components/BlogCard";
 
 const Home = () => {
   return (
     <div>
-      <Button variant="contained">Contained</Button>
+      <BlogCard />
     </div>
   );
 };

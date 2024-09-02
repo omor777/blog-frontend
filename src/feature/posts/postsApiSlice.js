@@ -5,7 +5,7 @@ const postsApiSlice = rootApi.injectEndpoints({
     createPost: builder.mutation({
       query: (body) => {
         return {
-          url: "/blog",
+          url: "/blogs",
           method: "POST",
           body,
         };
