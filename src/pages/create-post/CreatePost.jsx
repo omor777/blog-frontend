@@ -49,7 +49,6 @@ export default function CreatePost() {
   };
 
   const handlePostContentChange = (value) => {
-    console.log(value);
     dispatch(setPostContent(value));
   };
 

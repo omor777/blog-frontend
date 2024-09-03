@@ -80,7 +80,7 @@ const Navbar = () => {
 
   const isLoggedIn = useSelector(getIsLoggedIn);
   const user = useSelector(getUserInfo);
-  console.log(user);
+ 
   const dispatch = useDispatch();
 
   const open = Boolean(anchorEl);

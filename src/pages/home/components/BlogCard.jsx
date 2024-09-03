@@ -1,12 +1,10 @@
 import {
   Avatar,
   Button,
-  CardActions,
   CardContent,
   CardMedia,
   IconButton,
   Stack,
-  styled,
   Typography,
 } from "@mui/material";
 import Card from "@mui/material/Card";
@@ -16,7 +14,16 @@ import TurnedInOutlinedIcon from "@mui/icons-material/TurnedInOutlined";
 
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
-const BlogCard = () => {
+const BlogCard = ({ post }) => {
+  const { title, content } = post || {};
+
+  const readingTime = (text) => {
+    const wpm = 225;
+    const words = text.trim().split(/\s+/).length;
+    const time = Math.ceil(words / wpm);
+    return time;
+  };
+
   return (
     <Card>
       <CardMedia
@@ -26,7 +33,7 @@ const BlogCard = () => {
       <CardContent>
         <Stack direction="row" alignItems="flex-start" spacing={2}>
           <Avatar />
-          <Stack spacing={2}>
+          <Stack spacing={2} width={"100%"}>
             <Stack spacing={-0.3}>
               <Typography fontSize="18px">Omor Faruk</Typography>
               <Typography variant="caption" fontSize="12px">
@@ -34,11 +41,11 @@ const BlogCard = () => {
               </Typography>
             </Stack>
             <Typography
-              variant="h4"
+              variant="h5"
               fontWeight="bold"
               sx={{ color: "grey.800" }}
             >
-              How To Learn Javascript Well? Very Good At Js?
+              {title}
             </Typography>
             <Stack
               direction="row"
@@ -70,7 +77,7 @@ const BlogCard = () => {
               </Stack>
 
               <Stack direction="row" alignItems="center" spacing={1}>
-                <Typography>5 min read</Typography>
+                <Typography>{readingTime(content)} min read</Typography>
                 <IconButton>
                   <TurnedInNotOutlinedIcon />
                 </IconButton>
