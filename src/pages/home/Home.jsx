@@ -1,9 +1,8 @@
-import { Box, Stack } from "@mui/material";
-import { useGetPostsQuery } from "../../feature/posts/postsApiSlice";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Stack } from "@mui/material";
 import BlogCard from "./components/BlogCard";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-// const { data: posts, isLoading } = useGetPostsQuery();
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
@@ -26,8 +25,6 @@ const Home = () => {
       console.error("Error fetching blogs", error);
     }
   };
-
-  console.log(hasMore, page,blogs);
 
   return (
     <Stack spacing={3}>

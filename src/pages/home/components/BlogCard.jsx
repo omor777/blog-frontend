@@ -13,15 +13,28 @@ import TurnedInNotOutlinedIcon from "@mui/icons-material/TurnedInNotOutlined";
 import TurnedInOutlinedIcon from "@mui/icons-material/TurnedInOutlined";
 
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import { useAddLikeMutation } from "../../../feature/posts/postsApiSlice";
 
 const BlogCard = ({ post }) => {
-  const { title, content } = post || {};
+  const { title, content, _id } = post || {};
+
+  const [likePost, { isLoading }] = useAddLikeMutation();
 
   const readingTime = (text) => {
     const wpm = 225;
     const words = text.trim().split(/\s+/).length;
     const time = Math.ceil(words / wpm);
     return time;
+  };
+
+  const handleLike = async (postId) => {
+    console.log(postId);
+    try {
+      const d = await likePost(postId);
+      console.log(d, "handleLike");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -54,7 +67,7 @@ const BlogCard = ({ post }) => {
             >
               <Stack direction="row" spacing={4}>
                 <Stack direction="row" alignItems="center" spacing={1}>
-                  <IconButton>
+                  <IconButton onClick={() => handleLike(_id)}>
                     <ThumbUpIcon />
                   </IconButton>
                   <Typography>0 Likes</Typography>
