@@ -14,11 +14,12 @@ import {
   Toolbar,
   Tooltip,
   Typography,
+  Link,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getIsLoggedIn, getUserInfo } from "../../feature/auth/authSelector";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -147,7 +148,7 @@ const Navbar = () => {
             {isLoggedIn ? (
               <Stack direction="row" alignItems="center">
                 <Button
-                  component={Link}
+                  component={RouterLink}
                   to="/create-post"
                   sx={{ whiteSpace: "nowrap" }}
                   variant="outlined"
@@ -214,13 +215,22 @@ const Navbar = () => {
                       },
                     }}
                   >
-                    <MenuItem dense onClick={handleCloseMenu}>
-                      <Avatar src={user?.image} alt={user?.name} />
-                      <Stack spacing={-0.5}>
-                        <Typography>Profile</Typography>
-                        <Typography variant="caption">@{user?.name}</Typography>
-                      </Stack>
-                    </MenuItem>
+                    <Link
+                      underline="none"
+                      color="inherit"
+                      component={RouterLink}
+                      to="/user-profile"
+                    >
+                      <MenuItem dense onClick={handleCloseMenu}>
+                        <Avatar src={user?.image} alt={user?.name} />
+                        <Stack spacing={-0.5}>
+                          <Typography>Profile</Typography>
+                          <Typography variant="caption">
+                            @{user?.name}
+                          </Typography>
+                        </Stack>
+                      </MenuItem>
+                    </Link>
                     <Divider />
                     <MenuItem onClick={handleCloseMenu}>
                       <ListItemIcon>
@@ -229,7 +239,7 @@ const Navbar = () => {
                       Dashboard
                     </MenuItem>
                     <MenuItem
-                      component={Link}
+                      component={RouterLink}
                       to="/create-post"
                       onClick={handleCloseMenu}
                     >
@@ -261,7 +271,7 @@ const Navbar = () => {
               </Stack>
             ) : (
               <Stack direction="row" spacing={2}>
-                <Button component={Link} to="/login" color="inherit">
+                <Button component={RouterLink} to="/login" color="inherit">
                   Login
                 </Button>
                 <Button

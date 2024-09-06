@@ -6,6 +6,7 @@ import Login from "../pages/login/Login";
 import CreatePost from "../pages/create-post/CreatePost";
 import PostLayout from "../layouts/PostLayout";
 import PostDetails from "../pages/post-details/PostDetails";
+import UserProfile from "../pages/user-profile/UserProfile";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: "/create-post",
     element: <PostLayout />,
+  },
+  {
+    path: "/user-profile",
+    element: <UserProfile />,
   },
 ]);
 
