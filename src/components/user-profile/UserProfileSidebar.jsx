@@ -19,7 +19,7 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 const UserProfileSidebar = () => {
   return (
     <Stack spacing={1.5}>
-      {/* <Card>
+      <Card>
         <CardContent>
           <Typography fontWeight={600} sx={{ color: "grey.700" }}>
             Badges
@@ -45,7 +45,7 @@ const UserProfileSidebar = () => {
             />
           </Stack>
         </CardContent>
-      </Card> */}
+      </Card>
 
       <Card>
         <List>
