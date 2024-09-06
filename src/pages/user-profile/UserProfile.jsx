@@ -1,6 +1,7 @@
 import { Box, Container } from "@mui/material";
 import Navbar from "../../layouts/shared/Navbar";
 import UserProfileCard from "../../components/user-profile/UserProfileCard";
+import UserProfileSidebar from "../../components/user-profile/UserProfileSidebar";
 
 const UserProfile = () => {
   return (
@@ -20,10 +21,8 @@ const UserProfile = () => {
           <UserProfileCard />
         </Box>
 
-        <Box bgcolor={"red"} sx={{ gridColumn: "1 / span 3" }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum omnis
-          quos labore. Quaerat neque at, accusamus aspernatur eum nemo cumque,
-          enim possimus et nisi, in explicabo mollitia tempore quos rerum?
+        <Box sx={{ gridColumn: "1 / span 3", minWidth: 200 }}>
+          <UserProfileSidebar />
         </Box>
 
         <Box bgcolor={"purple"} sx={{ gridColumn: "4 / span 9" }}>
