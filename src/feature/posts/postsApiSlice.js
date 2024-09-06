@@ -3,11 +3,26 @@ import { rootApi } from "../../api/api";
 const postsApiSlice = rootApi.injectEndpoints({
   endpoints: (builder) => ({
     getPosts: builder.query({
-      query: () => "/posts",
+      query: (page) => {
+        return {
+          url: "/posts",
+          method: "GET",
+          params: { page },
+        };
+      },
       providesTags: (result) =>
         result.success
           ? [...result.data.map(({ _id }) => ({ type: "Posts", id: _id }))]
           : [{ type: "Posts", id: "LIST" }],
+    }),
+    getPost: builder.query({
+      query: (postId) => {
+        return {
+          url: `/posts/${postId}`,
+          method: "GET",
+        };
+      },
+      providesTags: (_result, _error, id) => [{ type: "Posts", id }],
     }),
     createPost: builder.mutation({
       query: (body) => {
@@ -20,14 +35,12 @@ const postsApiSlice = rootApi.injectEndpoints({
     }),
     addLike: builder.mutation({
       query: (postId) => {
-        console.log(postId);
         return {
           url: `/posts/${postId}/likes`,
           method: "POST",
         };
       },
       invalidatesTags: (_result, _error, id) => {
-        console.log(arg, "Arg from invalidate tags");
         return [{ type: "Posts", id: id }];
       },
     }),
@@ -35,5 +48,9 @@ const postsApiSlice = rootApi.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useCreatePostMutation, useGetPostsQuery, useAddLikeMutation } =
-  postsApiSlice;
+export const {
+  useCreatePostMutation,
+  useGetPostsQuery,
+  useAddLikeMutation,
+  useGetPostQuery,
+} = postsApiSlice;

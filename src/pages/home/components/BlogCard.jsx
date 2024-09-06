@@ -14,11 +14,13 @@ import TurnedInOutlinedIcon from "@mui/icons-material/TurnedInOutlined";
 
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { useAddLikeMutation } from "../../../feature/posts/postsApiSlice";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-const BlogCard = ({ post }) => {
-  const { title, content, _id } = post || {};
+const BlogCard = ({ post, setIsLike }) => {
+  const { title, content, _id, likeCount } = post || {};
 
-  const [likePost, { isLoading }] = useAddLikeMutation();
+  const [likePost] = useAddLikeMutation();
 
   const readingTime = (text) => {
     const wpm = 225;
@@ -28,14 +30,16 @@ const BlogCard = ({ post }) => {
   };
 
   const handleLike = async (postId) => {
-    console.log(postId);
     try {
-      const d = await likePost(postId);
-      console.log(d, "handleLike");
+      const d = await likePost(postId).unwrap();
+      // console.log(d);
+      setIsLike((prev) => !prev);
     } catch (e) {
       console.log(e);
     }
   };
+
+  // console.log(post);
 
   return (
     <Card>
@@ -70,7 +74,7 @@ const BlogCard = ({ post }) => {
                   <IconButton onClick={() => handleLike(_id)}>
                     <ThumbUpIcon />
                   </IconButton>
-                  <Typography>0 Likes</Typography>
+                  <Typography>{likeCount} Likes</Typography>
                 </Stack>
 
                 <Button
@@ -101,6 +105,10 @@ const BlogCard = ({ post }) => {
       </CardContent>
     </Card>
   );
+};
+
+BlogCard.propTypes = {
+  post: PropTypes.object,
 };
 
 export default BlogCard;

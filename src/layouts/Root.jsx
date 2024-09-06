@@ -10,7 +10,9 @@ const Root = () => {
   return (
     <>
       <CssBaseline />
-      <Box>
+      <Navbar />
+      <Outlet />
+      {/* <Box>
         <Box component="header" mb={1}>
           <Container maxWidth="xl">
             <Navbar />
@@ -35,7 +37,7 @@ const Root = () => {
             Right Sidebar
           </Box>
         </Container>
-      </Box>
+      </Box> */}
     </>
   );
 };

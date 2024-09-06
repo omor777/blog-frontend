@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Button,
+  Container,
   Divider,
   IconButton,
   InputBase,
@@ -80,7 +81,7 @@ const Navbar = () => {
 
   const isLoggedIn = useSelector(getIsLoggedIn);
   const user = useSelector(getUserInfo);
- 
+
   const dispatch = useDispatch();
 
   const open = Boolean(anchorEl);
@@ -100,181 +101,182 @@ const Navbar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
-        position="static"
         sx={{
           "&.MuiAppBar-root": {
             boxShadow: 1,
           },
         }}
       >
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2, display: { md: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Button
-            component={Link}
-            to="/"
-            variant="contained"
-            sx={{
-              boxShadow: "none",
-              bgcolor: "primary.main",
-              color: "grey.50",
-              "&:hover": {
+        <Container maxWidth="xl">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2, display: { md: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Button
+              component={Link}
+              to="/"
+              variant="contained"
+              sx={{
                 boxShadow: "none",
-                bgcolor: "primary.dark",
-              },
-              border: "2px solid white",
-              mr: 1,
-            }}
-          >
-            DEV
-          </Button>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase placeholder="Search..." />
-          </Search>
-          <Box flexGrow={1} />
+                bgcolor: "primary.main",
+                color: "grey.50",
+                "&:hover": {
+                  boxShadow: "none",
+                  bgcolor: "primary.dark",
+                },
+                border: "2px solid white",
+                mr: 1,
+              }}
+            >
+              DEV
+            </Button>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase placeholder="Search..." />
+            </Search>
+            <Box flexGrow={1} />
 
-          {isLoggedIn ? (
-            <Stack direction="row" alignItems="center">
-              <Button
-                component={Link}
-                to="/create-post"
-                sx={{ whiteSpace: "nowrap" }}
-                variant="outlined"
-                color="inherit"
-              >
-                Create Post
-              </Button>
-              <IconButton color="inherit" sx={{ ml: 1, mr: 0.5 }}>
-                <NotificationsIcon fontSize="large" />
-              </IconButton>
+            {isLoggedIn ? (
+              <Stack direction="row" alignItems="center">
+                <Button
+                  component={Link}
+                  to="/create-post"
+                  sx={{ whiteSpace: "nowrap" }}
+                  variant="outlined"
+                  color="inherit"
+                >
+                  Create Post
+                </Button>
+                <IconButton color="inherit" sx={{ ml: 1, mr: 0.5 }}>
+                  <NotificationsIcon fontSize="large" />
+                </IconButton>
 
-              <Box>
-                <Tooltip title="Account settings">
-                  <IconButton
-                    onClick={handleOpenMenu}
-                    size="small"
-                    aria-controls={open ? "account-mene" : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? "true" : undefined}
-                  >
-                    <Avatar
-                      src={user?.image}
-                      alt={user?.name}
-                      sx={{ width: 40, height: 40, aspectRatio: 1 / 1 }}
-                    ></Avatar>
-                  </IconButton>
-                </Tooltip>
+                <Box>
+                  <Tooltip title="Account settings">
+                    <IconButton
+                      onClick={handleOpenMenu}
+                      size="small"
+                      aria-controls={open ? "account-mene" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? "true" : undefined}
+                    >
+                      <Avatar
+                        src={user?.image}
+                        alt={user?.name}
+                        sx={{ width: 40, height: 40, aspectRatio: 1 / 1 }}
+                      ></Avatar>
+                    </IconButton>
+                  </Tooltip>
 
-                <Menu
-                  open={open}
-                  id="account-mene"
-                  anchorEl={anchorEl}
-                  onClose={handleCloseMenu}
-                  onClick={handleCloseMenu}
-                  transformOrigin={{ horizontal: "right", vertical: "top" }}
-                  anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-                  slotProps={{
-                    paper: {
-                      elevation: 0,
-                      sx: {
-                        overflow: "visible",
-                        filter: "drop-shadow(0px 2px 5px rgba(0,0,0,0.32))",
-                        mt: 1.5,
-                        width: 210,
-                        "& .MuiAvatar-root": {
-                          width: 32,
-                          height: 32,
-                          ml: -0.5,
-                          mr: 1,
-                        },
-                        "&::before": {
-                          content: '""',
-                          display: "block",
-                          position: "absolute",
-                          top: 0,
-                          right: 14,
-                          width: 10,
-                          height: 10,
-                          bgcolor: "background.paper",
-                          transform: "translateY(-50%) rotate(45deg)",
-                          zIndex: 0,
+                  <Menu
+                    open={open}
+                    id="account-mene"
+                    anchorEl={anchorEl}
+                    onClose={handleCloseMenu}
+                    onClick={handleCloseMenu}
+                    transformOrigin={{ horizontal: "right", vertical: "top" }}
+                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                    slotProps={{
+                      paper: {
+                        elevation: 0,
+                        sx: {
+                          overflow: "visible",
+                          filter: "drop-shadow(0px 2px 5px rgba(0,0,0,0.32))",
+                          mt: 1.5,
+                          width: 210,
+                          "& .MuiAvatar-root": {
+                            width: 32,
+                            height: 32,
+                            ml: -0.5,
+                            mr: 1,
+                          },
+                          "&::before": {
+                            content: '""',
+                            display: "block",
+                            position: "absolute",
+                            top: 0,
+                            right: 14,
+                            width: 10,
+                            height: 10,
+                            bgcolor: "background.paper",
+                            transform: "translateY(-50%) rotate(45deg)",
+                            zIndex: 0,
+                          },
                         },
                       },
-                    },
-                  }}
-                >
-                  <MenuItem dense onClick={handleCloseMenu}>
-                    <Avatar src={user?.image} alt={user?.name} />
-                    <Stack spacing={-0.5}>
-                      <Typography>Profile</Typography>
-                      <Typography variant="caption">@{user?.name}</Typography>
-                    </Stack>
-                  </MenuItem>
-                  <Divider />
-                  <MenuItem onClick={handleCloseMenu}>
-                    <ListItemIcon>
-                      <DashboardIcon fontSize="small" />
-                    </ListItemIcon>
-                    Dashboard
-                  </MenuItem>
-                  <MenuItem
-                    component={Link}
-                    to="/create-post"
-                    onClick={handleCloseMenu}
-                  >
-                    <ListItemIcon>
-                      <NoteAddIcon fontSize="small" />
-                    </ListItemIcon>
-                    Create Post
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <LibraryBooksIcon fontSize="small" />
-                    </ListItemIcon>
-                    Reading List
-                  </MenuItem>
-                  <Divider />
-                  <MenuItem
-                    onClick={() => {
-                      handleCloseMenu();
-                      handleLogout();
                     }}
                   >
-                    <ListItemIcon>
-                      <LogoutIcon fontSize="small" />
-                    </ListItemIcon>
-                    Logout
-                  </MenuItem>
-                </Menu>
-              </Box>
-            </Stack>
-          ) : (
-            <Stack direction="row" spacing={2}>
-              <Button component={Link} to="/login" color="inherit">
-                Login
-              </Button>
-              <Button
-                component={Link}
-                to="/register"
-                color="inherit"
-                variant="outlined"
-                sx={{ whiteSpace: "nowrap" }}
-              >
-                Create account
-              </Button>
-            </Stack>
-          )}
-        </Toolbar>
+                    <MenuItem dense onClick={handleCloseMenu}>
+                      <Avatar src={user?.image} alt={user?.name} />
+                      <Stack spacing={-0.5}>
+                        <Typography>Profile</Typography>
+                        <Typography variant="caption">@{user?.name}</Typography>
+                      </Stack>
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={handleCloseMenu}>
+                      <ListItemIcon>
+                        <DashboardIcon fontSize="small" />
+                      </ListItemIcon>
+                      Dashboard
+                    </MenuItem>
+                    <MenuItem
+                      component={Link}
+                      to="/create-post"
+                      onClick={handleCloseMenu}
+                    >
+                      <ListItemIcon>
+                        <NoteAddIcon fontSize="small" />
+                      </ListItemIcon>
+                      Create Post
+                    </MenuItem>
+                    <MenuItem>
+                      <ListItemIcon>
+                        <LibraryBooksIcon fontSize="small" />
+                      </ListItemIcon>
+                      Reading List
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseMenu();
+                        handleLogout();
+                      }}
+                    >
+                      <ListItemIcon>
+                        <LogoutIcon fontSize="small" />
+                      </ListItemIcon>
+                      Logout
+                    </MenuItem>
+                  </Menu>
+                </Box>
+              </Stack>
+            ) : (
+              <Stack direction="row" spacing={2}>
+                <Button component={Link} to="/login" color="inherit">
+                  Login
+                </Button>
+                <Button
+                  component={Link}
+                  to="/register"
+                  color="inherit"
+                  variant="outlined"
+                  sx={{ whiteSpace: "nowrap" }}
+                >
+                  Create account
+                </Button>
+              </Stack>
+            )}
+          </Toolbar>
+        </Container>
       </AppBar>
     </Box>
   );
