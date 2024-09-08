@@ -21,6 +21,8 @@ import PostDetailsRightSidebar from "../../components/post-details/PostDetailsRi
 
 import "./style/postDetails.css";
 
+// TODO: debug warning in the console
+
 const PostDetails = () => {
   const { postId } = useParams();
 

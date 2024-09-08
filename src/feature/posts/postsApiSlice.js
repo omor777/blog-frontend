@@ -50,7 +50,7 @@ const postsApiSlice = rootApi.injectEndpoints({
         return {
           url: `/posts/${postId}/comments`,
           method: "POST",
-          body: content,
+          body: { content },
         };
       },
     }),

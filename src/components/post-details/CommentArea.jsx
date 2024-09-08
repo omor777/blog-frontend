@@ -1,17 +1,34 @@
 import { Avatar, Box, Button, Paper, Stack } from "@mui/material";
 
-import "./style/commentArea.css";
-
 import MarkdownEditor from "@uiw/react-markdown-editor";
 import { useState } from "react";
 import Comment from "./Comment";
+import { useAddCommentMutation } from "../../feature/posts/postsApiSlice";
+import { useParams } from "react-router-dom";
 
+import "./style/commentArea.css";
+import { toast } from "react-toastify";
 const CommentArea = () => {
   const [comment, setComment] = useState("");
   const [isPreview, setIsPreview] = useState(false);
+  const { postId } = useParams();
+  const [addComment, { isLoading }] = useAddCommentMutation();
 
   const handleCommentPreview = () => {
     setIsPreview((prev) => !prev);
+  };
+
+  const handleAddComment = async () => {
+    try {
+      const data = await addComment({ postId, content: comment }).unwrap();
+
+      if (data.success) {
+        toast.success("Comment successful");
+        setComment("");
+      }
+    } catch (error) {
+      console.log("Failed add comment", error);
+    }
   };
 
   return (
@@ -34,7 +51,11 @@ const CommentArea = () => {
             </Paper>
           )}
           <Stack direction="row" alignItems="center" spacing={1.5} mt={2}>
-            <Button disabled variant="contained">
+            <Button
+              disabled={!comment}
+              onClick={handleAddComment}
+              variant="contained"
+            >
               submit
             </Button>
             <Button
