@@ -5,7 +5,7 @@ import CommentArea from "./CommentArea";
 
 const CommentBox = () => {
   return (
-    <Box flexGrow={1}>
+    <Box flexGrow={1} id="#comments">
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Stack direction="row" alignItems="center" spacing={1}>
           <Typography variant="h5" fontWeight={700} sx={{ color: "grey.800" }}>

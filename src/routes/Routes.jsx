@@ -34,12 +34,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/create-post",
-    element: <PostLayout />,
-  },
-  {
     path: "/user-profile",
     element: <UserProfile />,
+  },
+  {
+    path: "/create-post",
+    element: <PostLayout />,
   },
 ]);
 

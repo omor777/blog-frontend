@@ -74,14 +74,7 @@ const Home = () => {
     >
       <Stack spacing={3}>
         {data?.data?.map((post) => (
-          <Link
-            key={post._id}
-            underline="none"
-            component={RouterLink}
-            to={`/post/${post._id}`}
-          >
-            <BlogCard post={post} setIsLike={setIsLike} />
-          </Link>
+          <BlogCard key={post._id} post={post} setIsLike={setIsLike} />
         ))}
       </Stack>
     </InfiniteScroll>

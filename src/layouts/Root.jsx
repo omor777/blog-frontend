@@ -10,7 +10,7 @@ const Root = () => {
   return (
     <>
       <CssBaseline />
-      <Navbar />
+      <Navbar />/
       <Outlet />
       {/* <Box>
         <Box component="header" mb={1}>

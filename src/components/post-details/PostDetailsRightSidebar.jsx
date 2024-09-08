@@ -9,11 +9,12 @@ import {
   List,
   ListItem,
   ListItemText,
-  Paper,
   Stack,
   Typography,
 } from "@mui/material";
 import React from "react";
+
+import { Link as RouterLink } from "react-router-dom";
 
 const PostDetailsRightSidebar = () => {
   return (
@@ -22,11 +23,23 @@ const PostDetailsRightSidebar = () => {
       <Card>
         <CardHeader sx={{ bgcolor: "#BBC5E0" }} />
         <CardContent sx={{ mt: -3.2 }}>
-          <Stack direction="row" alignItems="flex-end" spacing={1}>
-            <Avatar />
-            <Typography fontWeight={600} sx={{ color: "grey.800" }}>
+          <Stack direction="row" alignItems="flex-end" spacing={1.5}>
+            <Avatar component={RouterLink} to="/user-profile" />
+            <Link
+              component={RouterLink}
+              to="/user-profile"
+              underline="none"
+              fontWeight={600}
+              sx={{
+                color: "grey.800",
+                "&:hover": {
+                  color: "primary.main",
+                  cursor: "pointer",
+                },
+              }}
+            >
               Omor Faruk
-            </Typography>
+            </Link>
           </Stack>
 
           <Button variant="contained" fullWidth sx={{ mt: 2 }}>
@@ -61,7 +74,12 @@ const PostDetailsRightSidebar = () => {
         <CardContent>
           <Typography variant="h6">
             More from{" "}
-            <Link sx={{ cursor: "pointer" }} underline="none">
+            <Link
+              sx={{ cursor: "pointer" }}
+              underline="none"
+              component={RouterLink}
+              to="/user-profile"
+            >
               Nevo David
             </Link>
           </Typography>

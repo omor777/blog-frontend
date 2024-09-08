@@ -6,6 +6,7 @@ import {
   IconButton,
   Stack,
   Typography,
+  Link,
 } from "@mui/material";
 import Card from "@mui/material/Card";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
@@ -15,7 +16,7 @@ import TurnedInOutlinedIcon from "@mui/icons-material/TurnedInOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { useAddLikeMutation } from "../../../feature/posts/postsApiSlice";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 const BlogCard = ({ post, setIsLike }) => {
   const { title, content, _id, likeCount } = post || {};
@@ -57,19 +58,28 @@ const BlogCard = ({ post, setIsLike }) => {
                 Posted on Aug 21
               </Typography>
             </Stack>
-            <Typography
+            <Link
+              component={RouterLink}
+              to={`/post/${_id}`}
+              underline="none"
               variant="h5"
               fontWeight="bold"
-              sx={{ color: "grey.800" }}
+              sx={{
+                color: "grey.800",
+                "&:hover": {
+                  color: "primary.main",
+                  cursor: "pointer",
+                },
+              }}
             >
               {title}
-            </Typography>
+            </Link>
             <Stack
               direction="row"
               justifyContent="space-between"
               alignItems="center"
             >
-              <Stack direction="row" spacing={4}>
+              <Stack direction="row" spacing={4} alignItems="center">
                 <Stack direction="row" alignItems="center" spacing={1}>
                   <IconButton onClick={() => handleLike(_id)}>
                     <ThumbUpIcon />
@@ -77,20 +87,29 @@ const BlogCard = ({ post, setIsLike }) => {
                   <Typography>{likeCount} Likes</Typography>
                 </Stack>
 
-                <Button
+                <Link
+                  component={RouterLink}
+                  to={`/post/${_id}`}
+                  href="#comments"
                   sx={{
-                    color: "grey.700",
-
+                    cursor: "pointer",
+                    color: "gray",
                     "&:hover": {
-                      bgcolor: "transparent",
+                      color: "gray",
                     },
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
                   }}
-                  startIcon={<ChatBubbleIcon />}
+                  underline="none"
                 >
-                  <Typography sx={{ textTransform: "capitalize" }}>
+                  <ChatBubbleIcon fontSize="small" />
+                  <Typography
+                    sx={{ textTransform: "capitalize", userSelect: "none" }}
+                  >
                     Comments
                   </Typography>
-                </Button>
+                </Link>
               </Stack>
 
               <Stack direction="row" alignItems="center" spacing={1}>

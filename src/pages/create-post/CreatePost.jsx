@@ -1,4 +1,4 @@
-import MDEditor from "@uiw/react-md-editor";
+import MarkdownEditor from "@uiw/react-markdown-editor";
 
 import "./toolbar.css";
 import {
@@ -143,13 +143,10 @@ export default function CreatePost() {
               fullWidth
             />
           </Box>
-          <MDEditor
+          <MarkdownEditor
+            height={400}
             value={content}
             onChange={handlePostContentChange}
-            extraCommands={[]}
-            visibleDragbar={false}
-            preview="edit"
-            height={380}
           />
         </Paper>
       ) : (

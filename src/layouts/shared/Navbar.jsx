@@ -120,7 +120,7 @@ const Navbar = () => {
               <MenuIcon />
             </IconButton>
             <Button
-              component={Link}
+              component={RouterLink}
               to="/"
               variant="contained"
               sx={{
