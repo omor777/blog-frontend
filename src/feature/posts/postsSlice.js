@@ -5,6 +5,7 @@ const initialState = {
   content: "",
   previewImg: null,
   isPreview: false,
+  singlePostData: null,
 };
 
 const postsSlice = createSlice({
@@ -35,6 +36,9 @@ const postsSlice = createSlice({
       state.previewImg = null;
       state.isPreview = false;
     },
+    addSinglePostData(state, action) {
+      state.singlePostData = action.payload;
+    },
   },
 });
 
@@ -46,6 +50,7 @@ export const {
   setPreview,
   removePreview,
   resetToInitialState,
+  addSinglePostData,
 } = postsSlice.actions;
 
 export default postsSlice.reducer;

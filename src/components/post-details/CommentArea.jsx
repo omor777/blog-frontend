@@ -3,15 +3,23 @@ import { Avatar, Box, Button, Paper, Stack } from "@mui/material";
 import MarkdownEditor from "@uiw/react-markdown-editor";
 import { useState } from "react";
 import Comment from "./Comment";
-import { useAddCommentMutation } from "../../feature/posts/postsApiSlice";
+
 import { useParams } from "react-router-dom";
 
 import "./style/commentArea.css";
 import { toast } from "react-toastify";
-const CommentArea = () => {
+import { useSelector } from "react-redux";
+import { getUserInfo } from "../../feature/auth/authSelector";
+import { useAddCommentMutation } from "../../feature/posts/commentsApiSlice";
+
+import PropTypes from "prop-types";
+
+const CommentArea = ({ comments }) => {
   const [comment, setComment] = useState("");
   const [isPreview, setIsPreview] = useState(false);
   const { postId } = useParams();
+  const loggedInUser = useSelector(getUserInfo);
+
   const [addComment, { isLoading }] = useAddCommentMutation();
 
   const handleCommentPreview = () => {
@@ -34,7 +42,7 @@ const CommentArea = () => {
   return (
     <Box flexGrow={1} mt={5}>
       <Stack direction="row" alignItems="flex-start" spacing={1.5}>
-        <Avatar />
+        <Avatar src={loggedInUser?.image} />
         <Stack alignItems="flex-start" width={"100%"}>
           {!isPreview ? (
             <MarkdownEditor
@@ -69,9 +77,13 @@ const CommentArea = () => {
         </Stack>
       </Stack>
 
-      <Comment />
+      <Comment comments={comments} />
     </Box>
   );
+};
+
+CommentArea.propTypes = {
+  comments: PropTypes.array.isRequired,
 };
 
 export default CommentArea;

@@ -45,15 +45,7 @@ const postsApiSlice = rootApi.injectEndpoints({
       },
     }),
 
-    addComment: builder.mutation({
-      query: ({ postId, content }) => {
-        return {
-          url: `/posts/${postId}/comments`,
-          method: "POST",
-          body: { content },
-        };
-      },
-    }),
+   
   }),
   overrideExisting: false,
 });
@@ -63,5 +55,5 @@ export const {
   useGetPostsQuery,
   useAddLikeMutation,
   useGetPostQuery,
-  useAddCommentMutation,
+
 } = postsApiSlice;

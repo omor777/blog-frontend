@@ -275,7 +275,7 @@ const Navbar = () => {
                   Login
                 </Button>
                 <Button
-                  component={Link}
+                  component={RouterLink}
                   to="/register"
                   color="inherit"
                   variant="outlined"

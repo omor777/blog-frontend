@@ -19,26 +19,18 @@ import CommentBox from "../../components/post-details/CommentBox";
 import PostDetailsLeftSidebar from "../../components/post-details/PostDetailsLeftSidebar";
 import PostDetailsRightSidebar from "../../components/post-details/PostDetailsRightSidebar";
 
-import "./style/postDetails.css";
-
 // TODO: debug warning in the console
 
 const PostDetails = () => {
   const { postId } = useParams();
 
-  const { data: post, isLoading } = useGetPostQuery(postId);
+  const { data: post, isLoading, isSuccess } = useGetPostQuery(postId);
 
   if (isLoading) {
     return <div>Loading....</div>;
   }
 
-  const {
-    title,
-    content,
-    image,
-    createdAt,
-    author: { name, image: authorImage },
-  } = post.data;
+  const { title, content, image, createdAt, userInfo } = post.data;
 
   return (
     <Box flexGrow={1} bgcolor="#F5F5F5">
@@ -71,14 +63,16 @@ const PostDetails = () => {
             <Card>
               <CardMedia
                 sx={{ height: 350, objectFit: "cover", maxWidth: "100%" }}
-                image={post?.data.image}
+                image={image}
               />
               <CardContent>
                 <Stack spacing={1.5} direction="row">
-                  <Avatar />
+                  <Avatar src={userInfo?.image} />
                   <Stack spacing={-0.2}>
-                    <Typography>{post?.data?.author?.name}</Typography>
-                    <Typography variant="caption">1 day ago</Typography>
+                    <Typography>{userInfo?.name}</Typography>
+                    <Typography variant="caption">
+                      {new Date(createdAt).toLocaleDateString()}
+                    </Typography>
                   </Stack>
                 </Stack>
 
@@ -111,70 +105,6 @@ const PostDetails = () => {
           </Box>
         </Box>
       </Container>
-
-      {/* <Container maxWidth="xl" sx={{ mt: 9.5 }}>
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: {
-              sm: "1fr",
-              md: "max(80px,5%) 1fr max(240px,20%)",
-            },
-
-            gap: 3,
-          }}
-        >
-          <Box
-            sx={{
-              display: { xs: "none", sm: "block" },
-            }}
-            flexGrow={1}
-          >
-            <PostDetailsLeftSidebar />
-          </Box>
-
-          <Box width={"100%"}>
-            <Card sx={{ width: "100%" }}>
-              <CardMedia
-                sx={{ height: 350, objectFit: "cover", maxWidth: "100%" }}
-                image={post?.data.image}
-              />
-              <CardContent sx={{ width: "100%" }}>
-                <Stack spacing={2.5} width={"100%"}>
-                  <Avatar />
-                  <Stack spacing={-0.2}>
-                    <Typography>{post?.data?.author?.name}</Typography>
-                    <Typography variant="caption">1 day ago</Typography>
-                  </Stack>
-                </Stack>
-
-                <Typography variant="h3">{title}</Typography>
-
-                <MarkdownEditor.Markdown
-                  source={content}
-                  width="200px"
-                  className="md-preview-css"
-                />
-
-                <Divider sx={{ my: 2 }} />
-
-                <CommentBox />
-              </CardContent>
-            </Card>
-          </Box>
-
-          <Box
-            sx={{
-              display: {
-                xs: "none",
-                md: "block",
-              },
-            }}
-          >
-            <PostDetailsRightSidebar />
-          </Box>
-        </Box>
-      </Container> */}
     </Box>
   );
 };
