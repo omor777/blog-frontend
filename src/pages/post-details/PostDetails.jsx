@@ -88,7 +88,7 @@ const PostDetails = () => {
                   {title}
                 </Typography>
 
-                <MarkdownEditor.Markdown source={content} />
+                
 
                 <Divider sx={{ my: 2 }} />
 

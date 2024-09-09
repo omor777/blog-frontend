@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Button,
   CardContent,
   CardMedia,
   IconButton,
@@ -17,18 +16,12 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { useAddLikeMutation } from "../../../feature/posts/postsApiSlice";
 import PropTypes from "prop-types";
 import { Link as RouterLink } from "react-router-dom";
+import { readingTimeCount } from "../../../utils/readingTimeCount";
 
 const BlogCard = ({ post, setIsLike }) => {
   const { title, content, _id, likeCount } = post || {};
 
   const [likePost] = useAddLikeMutation();
-
-  const readingTime = (text) => {
-    const wpm = 225;
-    const words = text.trim().split(/\s+/).length;
-    const time = Math.ceil(words / wpm);
-    return time;
-  };
 
   const handleLike = async (postId) => {
     try {
@@ -113,7 +106,7 @@ const BlogCard = ({ post, setIsLike }) => {
               </Stack>
 
               <Stack direction="row" alignItems="center" spacing={1}>
-                <Typography>{readingTime(content)} min read</Typography>
+                <Typography>{readingTimeCount(content)} min read</Typography>
                 <IconButton>
                   <TurnedInNotOutlinedIcon />
                 </IconButton>

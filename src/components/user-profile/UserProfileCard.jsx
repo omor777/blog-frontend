@@ -17,9 +17,10 @@ import XIcon from "@mui/icons-material/X";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
-const UserProfileCard = () => {
+const UserProfileCard = ({ userDetails }) => {
+  console.log(userDetails);
   return (
-    <Box sx={{ position: "relative",  }}>
+    <Box sx={{ position: "relative" }}>
       <Avatar
         sx={{
           position: "absolute",
@@ -53,18 +54,16 @@ const UserProfileCard = () => {
             textAlign="center"
             variant="h4"
             fontWeight={700}
-            sx={{ color: "grey.800" }}
+            sx={{ color: "grey.800", textTransform: "capitalize" }}
           >
-            Omor Faruk
+            {userDetails?.name}
           </Typography>
           <Typography
             textAlign="center"
             variant="body1"
             sx={{ mt: 1, maxWidth: "70%", mx: "auto" }}
           >
-            Sr. Front-end Engineer at NexGen | JavaScript | TypeScript | React
-            JS | Next JS | HTML | CSS | Tailwind CSS | Shopify Developer | 15k+
-            Linkedin
+            {userDetails?.bio}
           </Typography>
           <Stack
             sx={{ mt: 2.5 }}
@@ -86,7 +85,7 @@ const UserProfileCard = () => {
               </Box>
               <Typography sx={{ color: "gray" }} variant="caption">
                 {" "}
-                Delhi
+                {userDetails?.address}
               </Typography>
             </Stack>
 
@@ -101,36 +100,39 @@ const UserProfileCard = () => {
               </Box>
               <Typography sx={{ color: "gray" }} variant="caption">
                 {" "}
-                Joined on Jan 8, 2023
+                Joined on{" "}
+                {new Date(userDetails?.createdAt).toLocaleDateString()}
               </Typography>
             </Stack>
 
-            <Stack
-              direction="row"
-              flexWrap="wrap"
-              columnGap={1}
-              alignItems="center"
-            >
-              <Box>
-                <InsertLinkIcon fontSize="small" />
-              </Box>
-              <Link
-                href="https://www.google.com"
-                target="_blank"
-                underline="hover"
-                sx={{
-                  display: "block",
-                  color: "gray",
-                  "&:hover": {
-                    color: "primary.main",
-                    cursor: "pointer",
-                  },
-                }}
-                variant="caption"
+            {!!userDetails?.website && (
+              <Stack
+                direction="row"
+                flexWrap="wrap"
+                columnGap={1}
+                alignItems="center"
               >
-                https://dev.to/abhay1kumar
-              </Link>
-            </Stack>
+                <Box>
+                  <InsertLinkIcon fontSize="small" />
+                </Box>
+                <Link
+                  href="https://www.google.com"
+                  target="_blank"
+                  underline="hover"
+                  sx={{
+                    display: "block",
+                    color: "gray",
+                    "&:hover": {
+                      color: "primary.main",
+                      cursor: "pointer",
+                    },
+                  }}
+                  variant="caption"
+                >
+                  {userDetails?.website}
+                </Link>
+              </Stack>
+            )}
 
             <Stack
               direction="row"

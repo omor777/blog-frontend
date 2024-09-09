@@ -16,7 +16,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import TagIcon from "@mui/icons-material/Tag";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
-const UserProfileSidebar = () => {
+const UserProfileSidebar = ({ totalPosts, totalComments }) => {
   return (
     <Stack spacing={1.5}>
       <Card>
@@ -57,7 +57,7 @@ const UserProfileSidebar = () => {
               <ListItemText
                 primary={
                   <Typography variant="body2" fontWeight={300}>
-                    8 posts published
+                    {totalPosts} posts published
                   </Typography>
                 }
               />
@@ -72,7 +72,7 @@ const UserProfileSidebar = () => {
               <ListItemText
                 primary={
                   <Typography variant="body2" fontWeight={300}>
-                    1 comments written
+                    {totalComments} comments written
                   </Typography>
                 }
               />
