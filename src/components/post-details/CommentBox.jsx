@@ -20,7 +20,7 @@ const CommentBox = () => {
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Stack direction="row" alignItems="center" spacing={1}>
           <Typography variant="h5" fontWeight={700} sx={{ color: "grey.800" }}>
-            Top comments ({comments.data?.length})
+            Top comments ({comments?.length})
           </Typography>
           <IconButton>
             <UnfoldMoreIcon />
@@ -31,7 +31,7 @@ const CommentBox = () => {
         </Button>
       </Stack>
 
-      <CommentArea comments={comments.data} />
+      <CommentArea comments={comments} />
     </Box>
   );
 };

@@ -34,7 +34,7 @@ const Comment = ({ comments }) => {
   return (
     <Stack mt={5} spacing={4}>
       {comments?.length > 0 &&
-        comments.map(({ _id, content, createdAt, userId: { name, image } }) => {
+        comments.map(({ _id, content, createdAt, user: { name, image } }) => {
           return (
             <Stack
               key={_id}

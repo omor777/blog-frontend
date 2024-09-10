@@ -11,6 +11,24 @@ const commentsApiSlice = rootApi.injectEndpoints({
               { type: "Comment", id: "LIST" },
             ]
           : [{ type: "Comment", id: "LIST" }],
+
+      transformResponse: (response) => {
+        const { success, data } = response;
+        if (success) {
+          const transformData = data.map(
+            ({ _id, content, createdAt, userId }) => ({
+              _id,
+              content,
+              createdAt,
+              user: {
+                name: userId.name,
+                image: userId.image,
+              },
+            })
+          );
+          return transformData;
+        }
+      },
     }),
 
     addComment: builder.mutation({
