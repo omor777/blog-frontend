@@ -37,6 +37,7 @@ const UserProfileCard = ({ userDetails }) => {
       />
       <Card>
         <CardHeader
+          disableTypography={true}
           action={
             <Stack>
               <Button

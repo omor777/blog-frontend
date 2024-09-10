@@ -21,7 +21,7 @@ const PostDetailsRightSidebar = () => {
     <Stack spacing={2}>
       {/* user profile card */}
       <Card>
-        <CardHeader sx={{ bgcolor: "#BBC5E0" }} />
+        <CardHeader disableTypography={true} sx={{ bgcolor: "#BBC5E0" }} />
         <CardContent sx={{ mt: -3.2 }}>
           <Stack direction="row" alignItems="flex-end" spacing={1.5}>
             <Avatar component={RouterLink} to="/user-profile" />
@@ -104,6 +104,7 @@ const PostDetailsRightSidebar = () => {
                         How I built my open okay scheduling tool 🤯
                       </Link>
                     }
+                    disableTypography={true}
                     secondary={
                       <Stack
                         mt={0.5}

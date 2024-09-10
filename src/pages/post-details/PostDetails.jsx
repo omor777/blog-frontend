@@ -19,7 +19,6 @@ import CommentBox from "../../components/post-details/CommentBox";
 import PostDetailsLeftSidebar from "../../components/post-details/PostDetailsLeftSidebar";
 import PostDetailsRightSidebar from "../../components/post-details/PostDetailsRightSidebar";
 
-// TODO: debug warning in the console
 
 const PostDetails = () => {
   const { postId } = useParams();
@@ -30,7 +29,7 @@ const PostDetails = () => {
     return <div>Loading....</div>;
   }
 
-  const { title, content, image, createdAt, userInfo } = post.data;
+  const { title, content, image, createdAt, userInfo } = post
 
   return (
     <Box flexGrow={1} bgcolor="#F5F5F5">

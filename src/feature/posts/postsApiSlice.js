@@ -23,6 +23,40 @@ const postsApiSlice = rootApi.injectEndpoints({
         };
       },
       providesTags: (_result, _error, id) => [{ type: "Posts", id }],
+
+      transformResponse: (response) => {
+        const { success, data } = response;
+
+        if (success) {
+          const {
+            _id,
+            title,
+            content,
+            image,
+            slug,
+            createdAt,
+            userInfo: user,
+          } = data;
+
+          const transformData = {
+            _id,
+            title,
+            content,
+            image,
+            slug,
+            createdAt,
+            userInfo: {
+              name: user.name,
+              bio: user.bio,
+              address: user.address,
+              image: user.image,
+              createdAt: user.createdAt,
+            },
+          };
+
+          return transformData;
+        }
+      },
     }),
     createPost: builder.mutation({
       query: (body) => {
@@ -44,8 +78,6 @@ const postsApiSlice = rootApi.injectEndpoints({
         return [{ type: "Posts", id: id }];
       },
     }),
-
-   
   }),
   overrideExisting: false,
 });
@@ -55,5 +87,4 @@ export const {
   useGetPostsQuery,
   useAddLikeMutation,
   useGetPostQuery,
-
 } = postsApiSlice;

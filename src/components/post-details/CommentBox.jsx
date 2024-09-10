@@ -13,7 +13,7 @@ const CommentBox = () => {
     return <div>Loading....</div>;
   }
 
-  console.log(comments);
+  // console.log(comments);
 
   return (
     <Box flexGrow={1} id="#comments">

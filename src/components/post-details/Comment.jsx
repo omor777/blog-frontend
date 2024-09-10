@@ -120,6 +120,7 @@ const Comment = ({ comments }) => {
                         </Typography>
                       </Stack>
                     }
+                    disableTypography={true}
                   />
 
                   <CardContent sx={{ pt: 0 }}>
